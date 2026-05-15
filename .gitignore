@@ -1,0 +1,8 @@
+*.class
+.vscode/
+.idea/
+.settings/
+.classpath
+.project
+out/
+bin/
