@@ -1,31 +1,34 @@
-public abstract class Item{
-
+public abstract class Item {
     protected int id;
     protected String titulo;
     protected boolean disponivel;
 
-    public Item(int id,String titulo){
+    public Item(int id, String titulo) {
         this.id = id;
-        this.titulo=titulo;
+        this.titulo = titulo;
         this.disponivel = true;
     }
 
-    public int getId(){
+    public int getId() {
         return id;
     }
-    public String getTitulo(){
+
+    public String getTitulo() {
         return titulo;
     }
-    public boolean isDisponivel(){
+
+    public boolean isDisponivel() {
         return disponivel;
     }
 
-    public void setDisponivel(boolean disponivel){
+    public void setDisponivel(boolean disponivel) {
         this.disponivel = disponivel;
     }
-    @Override
 
-    public String toString(){
+    public abstract String getDetalhes();
+
+    @Override
+    public String toString() {
         return "ID: " + id +
                " | Título: " + titulo +
                " | Disponível: " + disponivel;
