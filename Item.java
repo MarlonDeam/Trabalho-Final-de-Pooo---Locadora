@@ -1,4 +1,4 @@
-public abstract class Item {
+public abstract class Item implements Locavel, Cadastravel {
     protected int id;
     protected String titulo;
     protected boolean disponivel;
@@ -8,7 +8,7 @@ public abstract class Item {
         this.titulo = titulo;
         this.disponivel = true;
     }
-
+    
     public int getId() {
         return id;
     }
