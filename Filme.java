@@ -1,7 +1,7 @@
 public class Filme extends Item {
     private String diretor;
     private String genero;
-    private int duracao; // em minutos
+    private int duracao; 
 
     public Filme(int id, String titulo, String diretor, String genero, int duracao) {
         super(id, titulo);
