@@ -1,4 +1,6 @@
-public abstract class Item implements Locavel, Cadastravel {
+import java.io.Serializable;
+
+public abstract class Item implements Locavel, Cadastravel, Serializable {
     protected int id;
     protected String titulo;
     protected boolean disponivel;
@@ -8,7 +10,7 @@ public abstract class Item implements Locavel, Cadastravel {
         this.titulo = titulo;
         this.disponivel = true;
     }
-    
+
     public int getId() {
         return id;
     }

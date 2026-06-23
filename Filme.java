@@ -1,4 +1,5 @@
-public class Filme extends Item {
+import java.io.Serializable;
+public class Filme extends Item implements Serializable {
     private String diretor;
     private String genero;
     private int duracao; 
