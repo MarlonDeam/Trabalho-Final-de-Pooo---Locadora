@@ -17,6 +17,15 @@ public class Locacao {
         this.dataEntrega = null;
         item.setDisponivel(false);
     }
+    public Locacao(Cliente cliente, Item item, LocalDate dataRetirada, LocalDate dataPrevista) {
+    this.cliente = cliente;
+    this.item = item;
+    this.dataRetirada = dataRetirada;
+    this.dataPrevista = dataPrevista;
+    this.dataEntrega = null;
+    item.setDisponivel(false);
+}
+
 
     public Cliente getCliente() {
         return cliente;
