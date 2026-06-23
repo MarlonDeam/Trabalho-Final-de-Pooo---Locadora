@@ -1,7 +1,8 @@
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
-public class Locacao {
+public class Locacao implements Serializable {
     private Cliente cliente;
     private Item item;
     private LocalDate dataRetirada;
