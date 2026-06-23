@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -19,6 +20,7 @@ public class Main {
             System.out.println("4. Realizar Locação");
             System.out.println("5. Registrar Devolução");
             System.out.println("6. Listar Locações");
+            System.out.println("7. Criar locação de teste");
             System.out.println("0. Sair");
             System.out.print("Opção: ");
             try {
@@ -27,6 +29,11 @@ public class Main {
                 switch (opcao) {
                     case 1 -> menuFilmes();
                     case 2 -> menuJogos();
+                    case 3 -> menuClientes();
+                    case 4 -> realizarLocacao();
+                    case 5 -> registrarDevolucao();
+                    case 6 -> listarLocacoes();
+                    case 7 -> criarLocacaoTeste();
                     case 0 -> System.out.println("Encerrando...");
                     default -> System.out.println("Opção inválida!");
                 }
@@ -119,5 +126,92 @@ public class Main {
         System.out.print("ID do jogo a remover: "); int id = scanner.nextInt(); scanner.nextLine();
         jogos.removeIf(j -> j.getId() == id);
         System.out.println("Jogo removido!");
+    }
+
+    static void menuClientes() {
+        System.out.println("\n--- CLIENTES ---");
+        System.out.println("1. Cadastrar cliente");
+        System.out.println("2. Listar clientes");
+        System.out.print("Opção: ");
+        try {
+            int op = scanner.nextInt(); scanner.nextLine();
+            switch (op) {
+                case 1 -> cadastrarCliente();
+                case 2 -> listarClientes();
+                default -> System.out.println("Opção inválida!");
+            }
+        } catch (Exception e) {
+            System.out.println("Erro: digite apenas números!");
+            scanner.nextLine();
+        }
+    }
+
+    static void cadastrarCliente() {
+        System.out.print("Nome: "); String nome = scanner.nextLine();
+        System.out.print("CPF: "); String cpf = scanner.nextLine();
+        System.out.print("Telefone: "); String telefone = scanner.nextLine();
+        int id = clientes.size() + 1;
+        clientes.add(new Cliente(id, nome, cpf, telefone));
+        System.out.println("Cliente cadastrado com sucesso!");
+    }
+
+    static void listarClientes() {
+        if (clientes.isEmpty()) { System.out.println("Nenhum cliente cadastrado."); return; }
+        clientes.forEach(c -> System.out.println(c));
+    }
+
+    static void realizarLocacao() {
+        listarClientes();
+        System.out.print("ID do cliente: "); int idCliente = scanner.nextInt(); scanner.nextLine();
+        Cliente cliente = clientes.stream().filter(c -> c.getId() == idCliente).findFirst().orElse(null);
+        if (cliente == null) { System.out.println("Cliente não encontrado!"); return; }
+        if (cliente.temPendencia()) { System.out.println("Cliente com multa pendente! Quite antes de locar."); return; }
+
+        System.out.println("Locar: 1 - Filme  2 - Jogo");
+        int tipo = scanner.nextInt(); scanner.nextLine();
+
+        Item item = null;
+        if (tipo == 1) {
+            listarFilmes();
+            System.out.print("ID do filme: "); int idFilme = scanner.nextInt(); scanner.nextLine();
+            item = filmes.stream().filter(f -> f.getId() == idFilme).findFirst().orElse(null);
+        } else {
+            listarJogos();
+            System.out.print("ID do jogo: "); int idJogo = scanner.nextInt(); scanner.nextLine();
+            item = jogos.stream().filter(j -> j.getId() == idJogo).findFirst().orElse(null);
+        }
+
+        if (item == null) { System.out.println("Item não encontrado!"); return; }
+        if (!item.isDisponivel()) { System.out.println("Item indisponível!"); return; }
+
+        System.out.print("Prazo em dias: "); int prazo = scanner.nextInt(); scanner.nextLine();
+        locacoes.add(new Locacao(cliente, item, prazo));
+        System.out.println("Locação realizada com sucesso!");
+    }
+
+    static void registrarDevolucao() {
+        listarLocacoes();
+        System.out.print("Número da locação (posição na lista): "); int pos = scanner.nextInt(); scanner.nextLine();
+        if (pos < 1 || pos > locacoes.size()) { System.out.println("Locação inválida!"); return; }
+        Locacao loc = locacoes.get(pos - 1);
+        if (loc.isDevolvido()) { System.out.println("Item já devolvido!"); return; }
+        loc.registrarDevolucao();
+        System.out.println("Devolução registrada! " + (loc.getCliente().getMulta() > 0 ? "Multa: R$ " + loc.getCliente().getMulta() : "Sem multa."));
+    }
+
+    static void listarLocacoes() {
+        if (locacoes.isEmpty()) { System.out.println("Nenhuma locação registrada."); return; }
+        for (int i = 0; i < locacoes.size(); i++) {
+            System.out.println((i + 1) + ". " + locacoes.get(i));
+        }
+    }
+
+    static void criarLocacaoTeste() {
+        Cliente c = new Cliente(99, "Wagner", "000.000.000-00", "0000");
+        Filme f = new Filme(99, "Programação Orientada a Objetos", "Wagner", "Ação", 120);
+        Locacao loc = new Locacao(c, f, LocalDate.now().minusDays(2), LocalDate.now().minusDays(1));
+        locacoes.add(loc);
+        clientes.add(c);
+        System.out.println("Locação de teste criada! Vá em Registrar Devolução para ver a multa.");
     }
 }
