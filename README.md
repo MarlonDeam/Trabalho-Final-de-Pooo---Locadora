@@ -55,3 +55,46 @@ O sistema utiliza a **Serialização do Java** para salvar o estado da aplicaç�
    ```bash
    git clone [https://github.com/MarlonDeam/Trabalho-Final-de-Pooo---Locadora.git](https://github.com/MarlonDeam/Trabalho-Final-de-Pooo---Locadora.git)
    cd Trabalho-Final-de-Pooo---Locadora
+
+Compilar os arquivos fonte:
+    No terminal, dentro da pasta raiz do projeto onde estão os arquivos .java, execute o compilador do Java:
+    Bash
+
+    javac *.java
+
+    Executar a aplicação:
+    Após a compilação gerar os arquivos .class, inicie o programa chamando a classe principal:
+    Bash
+
+    java Main
+
+6. Guia de Uso (Manual do Usuário)
+
+Ao executar a classe Main, o sistema abrirá um menu interativo no terminal. Digite o número correspondente à ação desejada e pressione Enter:
+🔹 Menu Principal
+
+    1. Gerenciar Filmes e 2. Gerenciar Jogos: Permite cadastrar novos itens informando seus dados (Título, Gênero, Diretor/Plataforma), listar os itens do acervo com seus status de disponibilidade ou remover itens por ID.
+
+    3. Gerenciar Clientes: Permite cadastrar novos clientes informando Nome, CPF e Telefone, e listar os clientes já cadastrados (exibindo também o saldo de multas).
+
+    4. Realizar Locação: Associa um cliente a um item por meio de seus IDs. O sistema validará se o item está livre e se o cliente não possui pendências financeiras.
+
+    5. Registrar Devolução: Permite encerrar uma locação ativa informando o número correspondente na lista de locações abertas. Se houver atraso, a multa será cobrada automaticamente.
+
+    6. Listar Locações: Exibe o histórico de locações com os status "Em aberto" ou com as respectivas datas de entrega e multas aplicadas.
+
+    0. Sair: Salva automaticamente todas as alterações feitas nas listas em seus respectivos arquivos de persistência .dat e encerra o programa com segurança.
+
+💡 Guia de Teste Rápido (Demonstração de Multa para Correção)
+
+Para validar o cálculo de multas de forma imediata sem precisar esperar dias reais:
+
+    Inicie o programa e selecione a Opção 7 (Criar locação de teste). O sistema gerará automaticamente um cliente ("Wagner") e um filme com uma devolução já simulada em atraso.
+
+    Acesse a Opção 5 (Registrar Devolução).
+
+    Escolha a locação de teste criada. O sistema calculará instantaneamente o atraso e exibirá a aplicação da multa de R$ 2,00 por dia.
+
+7. Desenvolvedores
+
+    Marlon Dêam Dos Santos Nobre - Desenvolvedor Principal - MarlonDeam
