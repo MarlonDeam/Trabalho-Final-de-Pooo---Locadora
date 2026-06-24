@@ -6,3 +6,5 @@
 .project
 out/
 bin/
+*.dat
+*.class
