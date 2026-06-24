@@ -1,3 +1,4 @@
+import java.io.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +12,7 @@ public class Main {
     private static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
+        carregarDados();
         int opcao = -1;
         while (opcao != 0) {
             System.out.println("\n===== LOCADORA =====");
@@ -34,7 +36,10 @@ public class Main {
                     case 5 -> registrarDevolucao();
                     case 6 -> listarLocacoes();
                     case 7 -> criarLocacaoTeste();
-                    case 0 -> System.out.println("Encerrando...");
+                    case 0 -> {
+                        salvarDados();
+                        System.out.println("Encerrando...");
+                    }
                     default -> System.out.println("Opção inválida!");
                 }
             } catch (Exception e) {
@@ -213,5 +218,56 @@ public class Main {
         locacoes.add(loc);
         clientes.add(c);
         System.out.println("Locação de teste criada! Vá em Registrar Devolução para ver a multa.");
+    }
+
+    static void salvarDados() {
+        try {
+            ObjectOutputStream outFilmes = new ObjectOutputStream(new FileOutputStream("filmes.dat"));
+            outFilmes.writeObject(filmes);
+            outFilmes.close();
+
+            ObjectOutputStream outJogos = new ObjectOutputStream(new FileOutputStream("jogos.dat"));
+            outJogos.writeObject(jogos);
+            outJogos.close();
+
+            ObjectOutputStream outClientes = new ObjectOutputStream(new FileOutputStream("clientes.dat"));
+            outClientes.writeObject(clientes);
+            outClientes.close();
+
+            ObjectOutputStream outLocacoes = new ObjectOutputStream(new FileOutputStream("locacoes.dat"));
+            outLocacoes.writeObject(locacoes);
+            outLocacoes.close();
+
+            System.out.println("Dados salvos com sucesso!");
+        } catch (IOException e) {
+            System.out.println("Erro ao salvar: " + e.getMessage());
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    static void carregarDados() {
+        try {
+            ObjectInputStream inFilmes = new ObjectInputStream(new FileInputStream("filmes.dat"));
+            filmes = (List<Filme>) inFilmes.readObject();
+            inFilmes.close();
+
+            ObjectInputStream inJogos = new ObjectInputStream(new FileInputStream("jogos.dat"));
+            jogos = (List<Jogo>) inJogos.readObject();
+            inJogos.close();
+
+            ObjectInputStream inClientes = new ObjectInputStream(new FileInputStream("clientes.dat"));
+            clientes = (List<Cliente>) inClientes.readObject();
+            inClientes.close();
+
+            ObjectInputStream inLocacoes = new ObjectInputStream(new FileInputStream("locacoes.dat"));
+            locacoes = (List<Locacao>) inLocacoes.readObject();
+            inLocacoes.close();
+
+            System.out.println("Dados carregados!");
+        } catch (FileNotFoundException e) {
+            System.out.println("Nenhum dado salvo, iniciando do zero.");
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("Erro ao carregar: " + e.getMessage());
+        }
     }
 }
