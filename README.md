@@ -4,7 +4,7 @@ Documentação do Sistema de Locadora
 O sistema consiste em uma aplicação de terminal em Java para o gerenciamento de uma locadora de itens multimídia (Filmes e Jogos). O software permite o cadastro de clientes, controle de inventário, fluxo de locação e devolução, além do cálculo automatizado de multas por atraso e persistência dos dados de forma local.
 2. Arquitetura e Estrutura de Classes
 
-O projeto foi desenvolvido aplicando os pilares da Programação Orientada a Objetos (POO):
+O projeto foi desenvolvido aplicando os pilares da Programação Orientada a Objetos:
 Interfaces e Classes Abstratas
 
     Locavel (Interface): Define o contrato de comportamento para qualquer item que possa ser alugado no sistema, exigindo os métodos getDetalhes(), isDisponivel() e setDisponivel().
