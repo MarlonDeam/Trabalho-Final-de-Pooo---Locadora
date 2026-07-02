@@ -4,13 +4,41 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Classe principal do sistema de gerenciamento da locadora.
+ *
+ * <p>Esta classe é responsável por controlar a execução do programa,
+ * exibindo os menus, realizando cadastros, locações, devoluções,
+ * listagens e persistência dos dados da aplicação.</p>
+ *
+ * @author Marlon Deam
+ * @version 1.0
+ */
 public class Main {
+    /** Lista de filmes cadastrados. */
     private static List<Filme> filmes = new ArrayList<>();
+    
+    /** Lista de jogos cadastrados. */
     private static List<Jogo> jogos = new ArrayList<>();
+    
+    /** Lista de clientes cadastrados. */
     private static List<Cliente> clientes = new ArrayList<>();
+    
+    /** Lista de locações realizadas. */
     private static List<Locacao> locacoes = new ArrayList<>();
+    
+    /** Scanner utilizado para leitura das entradas do usuário. */
     private static Scanner scanner = new Scanner(System.in);
 
+    /**
+     * Método principal da aplicação.
+     *
+     * <p>Inicializa os dados previamente salvos, exibe o menu principal
+     * e permite ao usuário navegar pelas funcionalidades do sistema até
+     * escolher a opção de encerramento.</p>
+     *
+     * @param args argumentos de linha de comando.
+     */
     public static void main(String[] args) {
         carregarDados();
         int opcao = -1;
@@ -49,6 +77,12 @@ public class Main {
         }
     }
 
+    /**
+     * Exibe o menu de gerenciamento de filmes.
+     *
+     * <p>Permite ao usuário cadastrar, listar ou remover filmes
+     * cadastrados no sistema.</p>
+     */
     static void menuFilmes() {
         System.out.println("\n--- FILMES ---");
         System.out.println("1. Cadastrar filme");
@@ -69,6 +103,12 @@ public class Main {
         }
     }
 
+    /**
+     * Realiza o cadastro de um novo filme.
+     *
+     * <p>Solicita ao usuário as informações necessárias e adiciona
+     * o filme à lista de filmes cadastrados.</p>
+     */
     static void cadastrarFilme() {
         System.out.print("Título: "); String titulo = scanner.nextLine();
         System.out.print("Diretor: "); String diretor = scanner.nextLine();
@@ -79,11 +119,23 @@ public class Main {
         System.out.println("Filme cadastrado com sucesso!");
     }
 
+    /**
+     * Lista todos os filmes cadastrados.
+     *
+     * <p>Caso não existam filmes cadastrados, uma mensagem
+     * informativa será exibida ao usuário.</p>
+     */
     static void listarFilmes() {
         if (filmes.isEmpty()) { System.out.println("Nenhum filme cadastrado."); return; }
         filmes.forEach(f -> System.out.println(f.getDetalhes()));
     }
 
+    /**
+     * Remove um filme cadastrado.
+     *
+     * <p>Exibe a lista de filmes e solicita ao usuário o
+     * identificador do filme que deverá ser removido.</p>
+     */
     static void removerFilme() {
         listarFilmes();
         System.out.print("ID do filme a remover: "); int id = scanner.nextInt(); scanner.nextLine();
@@ -91,6 +143,12 @@ public class Main {
         System.out.println("Filme removido!");
     }
 
+    /**
+     * Exibe o menu de gerenciamento de jogos.
+     *
+     * <p>Permite cadastrar, listar e remover jogos
+     * cadastrados no sistema.</p>
+     */
     static void menuJogos() {
         System.out.println("\n--- JOGOS ---");
         System.out.println("1. Cadastrar jogo");
@@ -111,6 +169,12 @@ public class Main {
         }
     }
 
+    /**
+     * Realiza o cadastro de um novo jogo.
+     *
+     * <p>Solicita ao usuário as informações necessárias
+     * e adiciona o jogo à lista de jogos cadastrados.</p>
+     */
     static void cadastrarJogo() {
         System.out.print("Título: "); String titulo = scanner.nextLine();
         System.out.print("Plataforma: "); String plataforma = scanner.nextLine();
@@ -121,11 +185,23 @@ public class Main {
         System.out.println("Jogo cadastrado com sucesso!");
     }
 
+    /**
+     * Lista todos os jogos cadastrados no sistema.
+     *
+     * <p>Caso não existam jogos cadastrados, uma mensagem
+     * informativa será exibida ao usuário.</p>
+     */
     static void listarJogos() {
         if (jogos.isEmpty()) { System.out.println("Nenhum jogo cadastrado."); return; }
         jogos.forEach(j -> System.out.println(j.getDetalhes()));
     }
 
+    /**
+     * Remove um jogo cadastrado.
+     *
+     * <p>Exibe a lista de jogos cadastrados e solicita
+     * ao usuário o identificador do jogo que será removido.</p>
+     */
     static void removerJogo() {
         listarJogos();
         System.out.print("ID do jogo a remover: "); int id = scanner.nextInt(); scanner.nextLine();
@@ -133,6 +209,12 @@ public class Main {
         System.out.println("Jogo removido!");
     }
 
+    /**
+     * Exibe o menu de gerenciamento de clientes.
+     *
+     * <p>Permite cadastrar novos clientes ou listar
+     * todos os clientes cadastrados.</p>
+     */
     static void menuClientes() {
         System.out.println("\n--- CLIENTES ---");
         System.out.println("1. Cadastrar cliente");
@@ -151,6 +233,12 @@ public class Main {
         }
     }
 
+    /**
+     * Realiza o cadastro de um novo cliente.
+     *
+     * <p>Solicita ao usuário os dados necessários e
+     * adiciona o cliente à lista de clientes cadastrados.</p>
+     */
     static void cadastrarCliente() {
         System.out.print("Nome: "); String nome = scanner.nextLine();
         System.out.print("CPF: "); String cpf = scanner.nextLine();
@@ -160,11 +248,25 @@ public class Main {
         System.out.println("Cliente cadastrado com sucesso!");
     }
 
+    /**
+     * Lista todos os clientes cadastrados.
+     *
+     * <p>Caso não existam clientes cadastrados,
+     * uma mensagem será exibida ao usuário.</p>
+     */
     static void listarClientes() {
         if (clientes.isEmpty()) { System.out.println("Nenhum cliente cadastrado."); return; }
         clientes.forEach(c -> System.out.println(c));
     }
 
+    /**
+     * Realiza uma nova locação.
+     *
+     * <p>Permite selecionar um cliente e um item disponível,
+     * definindo o prazo de devolução. Caso o cliente possua
+     * multas pendentes ou o item esteja indisponível,
+     * a locação não será realizada.</p>
+     */
     static void realizarLocacao() {
         listarClientes();
         System.out.print("ID do cliente: "); int idCliente = scanner.nextInt(); scanner.nextLine();
@@ -194,6 +296,13 @@ public class Main {
         System.out.println("Locação realizada com sucesso!");
     }
 
+    /**
+     * Registra la devolução de uma locação.
+     *
+     * <p>Após a devolução, o sistema verifica se existe
+     * atraso e calcula automaticamente a multa, quando
+     * aplicável.</p>
+     */
     static void registrarDevolucao() {
         listarLocacoes();
         System.out.print("Número da locação (posição na lista): "); int pos = scanner.nextInt(); scanner.nextLine();
@@ -204,6 +313,12 @@ public class Main {
         System.out.println("Devolução registrada! " + (loc.getCliente().getMulta() > 0 ? "Multa: R$ " + loc.getCliente().getMulta() : "Sem multa."));
     }
 
+    /**
+     * Lista todas as locações registradas.
+     *
+     * <p>Exibe cada locação juntamente com sua posição
+     * na lista para facilitar a seleção durante a devolução.</p>
+     */
     static void listarLocacoes() {
         if (locacoes.isEmpty()) { System.out.println("Nenhuma locação registrada."); return; }
         for (int i = 0; i < locacoes.size(); i++) {
@@ -211,15 +326,32 @@ public class Main {
         }
     }
 
+    /**
+     * Cria uma locação fictícia para testes.
+     *
+     * <p>Este método gera automaticamente um cliente,
+     * um filme e uma locação com atraso para facilitar
+     * a validação do cálculo de multas.</p>
+     */
     static void criarLocacaoTeste() {
         Cliente c = new Cliente(99, "Wagner", "000.000.000-00", "0000");
         Filme f = new Filme(99, "Programação Orientada a Objetos", "Wagner", "Ação", 120);
+        
+        // CORREÇÃO: Adicionando o filme e o cliente criados às listas do sistema para evitar NullPointerException na persistência
+        filmes.add(f);
+        clientes.add(c);
+        
         Locacao loc = new Locacao(c, f, LocalDate.now().minusDays(2), LocalDate.now().minusDays(1));
         locacoes.add(loc);
-        clientes.add(c);
         System.out.println("Locação de teste criada! Vá em Registrar Devolução para ver a multa.");
     }
 
+    /**
+     * Salva todos os dados da aplicação em arquivos.
+     *
+     * <p>São armazenados os filmes, jogos, clientes
+     * e locações utilizando serialização de objetos.</p>
+     */
     static void salvarDados() {
         try {
             ObjectOutputStream outFilmes = new ObjectOutputStream(new FileOutputStream("filmes.dat"));
@@ -244,28 +376,42 @@ public class Main {
         }
     }
 
+    /**
+     * Carrega os dados previamente salvos.
+     *
+     * <p>Os arquivos contendo filmes, jogos, clientes e
+     * locações são desserializados. Caso não existam
+     * arquivos salvos, o sistema inicia com listas vazias.</p>
+     */
     @SuppressWarnings("unchecked")
     static void carregarDados() {
+        File fFilmes = new File("filmes.dat");
+        File fJogos = new File("jogos.dat");
+        File fClientes = new File("clientes.dat");
+        File fLocacoes = new File("locacoes.dat");
+
         try {
-            ObjectInputStream inFilmes = new ObjectInputStream(new FileInputStream("filmes.dat"));
-            filmes = (List<Filme>) inFilmes.readObject();
-            inFilmes.close();
-
-            ObjectInputStream inJogos = new ObjectInputStream(new FileInputStream("jogos.dat"));
-            jogos = (List<Jogo>) inJogos.readObject();
-            inJogos.close();
-
-            ObjectInputStream inClientes = new ObjectInputStream(new FileInputStream("clientes.dat"));
-            clientes = (List<Cliente>) inClientes.readObject();
-            inClientes.close();
-
-            ObjectInputStream inLocacoes = new ObjectInputStream(new FileInputStream("locacoes.dat"));
-            locacoes = (List<Locacao>) inLocacoes.readObject();
-            inLocacoes.close();
-
+            if (fFilmes.exists()) {
+                try (ObjectInputStream inFilmes = new ObjectInputStream(new FileInputStream(fFilmes))) {
+                    filmes = (List<Filme>) inFilmes.readObject();
+                }
+            }
+            if (fJogos.exists()) {
+                try (ObjectInputStream inJogos = new ObjectInputStream(new FileInputStream(fJogos))) {
+                    jogos = (List<Jogo>) inJogos.readObject();
+                }
+            }
+            if (fClientes.exists()) {
+                try (ObjectInputStream inClientes = new ObjectInputStream(new FileInputStream(fClientes))) {
+                    clientes = (List<Cliente>) inClientes.readObject();
+                }
+            }
+            if (fLocacoes.exists()) {
+                try (ObjectInputStream inLocacoes = new ObjectInputStream(new FileInputStream(fLocacoes))) {
+                    locacoes = (List<Locacao>) inLocacoes.readObject();
+                }
+            }
             System.out.println("Dados carregados!");
-        } catch (FileNotFoundException e) {
-            System.out.println("Nenhum dado salvo, iniciando do zero.");
         } catch (IOException | ClassNotFoundException e) {
             System.out.println("Erro ao carregar: " + e.getMessage());
         }
